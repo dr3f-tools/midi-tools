@@ -7,8 +7,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(readerwriterqueue)
 
-find_package(ALSA REQUIRED QUIET)
-find_package(Boost REQUIRED QUIET)
+find_package(ALSA REQUIRED)
+find_package(Boost REQUIRED)
 
 FetchContent_Declare(
     libremidi
@@ -17,3 +17,5 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(libremidi)
 target_compile_options(libremidi PRIVATE -Wno-maybe-uninitialized) # silence a Boost warning from libremidi
+
+find_package(GStreamer REQUIRED)

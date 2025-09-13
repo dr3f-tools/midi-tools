@@ -1,4 +1,3 @@
-// #include <rtmidi/RtMidi.h>
 #include <libremidi/libremidi.hpp>
 #include <iostream>
 

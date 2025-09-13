@@ -7,5 +7,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(deps)
 
-add_executable(midi-tools src/main.cpp)
-target_link_libraries(midi-tools libremidi::libremidi)
+
+add_executable(midireader src/midireader.cpp)
+target_link_libraries(midireader PRIVATE
+    libremidi::libremidi
+)
+
+add_executable(gstreamer src/gstreamer.cpp)
+target_link_libraries(gstreamer PRIVATE
+    GStreamer::GStreamer
+)

@@ -23,6 +23,7 @@ RUN apt update && apt install -y --no-install-recommends \
     openssh-client                  \
     pipewire-audio-client-libraries \
     pulseaudio-utils                \
+    pkg-config                      \
     python3         	            \
     python3-pip        	            \
     qemu-user-static                \
@@ -72,8 +73,8 @@ RUN apt update && apt install -y --no-install-recommends \
     libasound2-dev              \
     # libjack-dev                 \
     # libpulse-dev                \
-    # libgstreamer1.0-dev         \
-    # libgstreamer-plugins-base1.0-dev \
+    libgstreamer1.0-dev         \
+    libgstreamer-plugins-base1.0-dev \
     # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
