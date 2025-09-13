@@ -55,6 +55,17 @@ RUN apt update && apt install -y --no-install-recommends \
 # ENV AARCH64_SYSROOT=${ARM_TOOLCHAIN_PATH}/aarch64-none-linux-gnu/libc
 # RUN sudo ln -s ${AARCH64_SYSROOT}/lib/ld-linux-aarch64.so.1 /lib/ld-linux-aarch64.so.1
 
+# Audio packages
+RUN apt update && apt install -y --no-install-recommends \
+    gir1.2-gstreamer-1.0        \
+    gstreamer1.0-plugins-base   \
+    gstreamer1.0-plugins-good   \
+    python3-gi                  \
+    python3-rtmidi              \
+    python3-mido                \
+    # Cleanup
+    && rm -rf /var/lib/apt/lists/*
+
 # Create the user
 ARG USERNAME=user
 ARG USER_UID=1000
