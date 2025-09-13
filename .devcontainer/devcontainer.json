@@ -20,7 +20,6 @@
 	],
     "containerEnv": {
         "DISPLAY": "${localEnv:DISPLAY}",
-        "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
         "PULSE_SERVER": "unix:${localEnv:XDG_RUNTIME_DIR}/pulse/native"
         // "NVIDIA_DRIVER_CAPABILITIES": "all"
     },
