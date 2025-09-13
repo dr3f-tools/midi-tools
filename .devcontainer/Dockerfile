@@ -19,6 +19,7 @@ RUN apt update && apt install -y --no-install-recommends \
     iputils-ping                    \
     lsb-release                     \
     make                            \
+    ninja-build                     \
     openssh-client                  \
     pipewire-audio-client-libraries \
     pulseaudio-utils                \
@@ -63,6 +64,16 @@ RUN apt update && apt install -y --no-install-recommends \
     python3-gi                  \
     python3-rtmidi              \
     python3-mido                \
+    # Cleanup
+    && rm -rf /var/lib/apt/lists/*
+
+# todo: CLEANUP
+RUN apt update && apt install -y --no-install-recommends \
+    libasound2-dev              \
+    # libjack-dev                 \
+    # libpulse-dev                \
+    # libgstreamer1.0-dev         \
+    # libgstreamer-plugins-base1.0-dev \
     # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
