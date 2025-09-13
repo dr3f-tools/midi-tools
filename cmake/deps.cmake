@@ -7,9 +7,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(readerwriterqueue)
 
+find_package(ALSA REQUIRED QUIET)
+find_package(Boost REQUIRED QUIET)
+
 FetchContent_Declare(
     libremidi
     GIT_REPOSITORY https://github.com/celtera/libremidi
     GIT_TAG        v5.3.1
 )
 FetchContent_MakeAvailable(libremidi)
+target_compile_options(libremidi PRIVATE -Wno-maybe-uninitialized) # silence a Boost warning from libremidi

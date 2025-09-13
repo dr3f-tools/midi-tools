@@ -44,10 +44,14 @@ int main(int argc, char** argv) {
     // The argument is a libremidi::input_port gotten from a libremidi::observer. 
     midi.open_port(input_port);
 
-    while(midi.is_port_open()) {
+    while(midi.is_port_connected()) {
         // Keep the application alive while receiving messages
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
+
+    std::cout << "Closing the MIDI port" << std::endl;
+
+    midi.close_port();
 
     return EXIT_SUCCESS;
 }

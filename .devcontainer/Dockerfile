@@ -77,6 +77,12 @@ RUN apt update && apt install -y --no-install-recommends \
     # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
+# dev packages
+RUN apt update && apt install -y --no-install-recommends \
+    libboost-all-dev    \
+    # Cleanup
+    && rm -rf /var/lib/apt/lists/*
+
 # Create the user
 ARG USERNAME=user
 ARG USER_UID=1000
