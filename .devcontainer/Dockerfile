@@ -4,83 +4,70 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL=C.UTF-8
 ENV USER=root
 
+# Base packages and utilities
 RUN apt update && apt install -y --no-install-recommends \
-    alsa-utils                      \
     apt-utils                       \
     bash-completion                 \
     build-essential                 \
     ca-certificates                 \
-    clang-format                    \
-    clang-tidy                      \
     cmake                           \
     curl                            \
     git                             \
-    gdb-multiarch                   \
+    htop                            \
     iputils-ping                    \
     lsb-release                     \
+    lsof                            \
     make                            \
     ninja-build                     \
     openssh-client                  \
-    pipewire-audio-client-libraries \
-    pulseaudio-utils                \
     pkg-config                      \
     python3         	            \
     python3-pip        	            \
-    qemu-user-static                \
     rsync                           \
     sudo                            \
+    tree                            \
     unzip                           \
     wget       	                    \
     python-is-python3               \
+    vim                             \
     xz-utils                        \
     # Add user in sudoer group
     && adduser root sudo            \
     # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
-# # Install arm toolchain
-# ARG ARM_TOOLCHAIN_PKG=arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu
-# ARG ARM_TOOLCHAIN_URL=https://developer.arm.com/-/media/Files/downloads/gnu/11.3.rel1/binrel/${ARM_TOOLCHAIN_PKG}.tar.xz
-# RUN wget ${ARM_TOOLCHAIN_URL} \
-#     && tar xJf ${ARM_TOOLCHAIN_PKG}.tar.xz -C /opt
-
-# # Define the toolchain base path
-# ENV ARM_TOOLCHAIN_PATH=/opt/${ARM_TOOLCHAIN_PKG}
-
-# # AArch64 (Cross-Compilation)
-# ENV CROSS_COMPILE_AARCH64=${ARM_TOOLCHAIN_PATH}/bin/aarch64-none-linux-gnu
-# ENV CC_AARCH64=${CROSS_COMPILE_AARCH64}-gcc
-# ENV CXX_AARCH64=${CROSS_COMPILE_AARCH64}-g++
-# ENV AR_AARCH64=${CROSS_COMPILE_AARCH64}-ar
-
-# # Set environment for QEMU
-# ENV AARCH64_SYSROOT=${ARM_TOOLCHAIN_PATH}/aarch64-none-linux-gnu/libc
-# RUN sudo ln -s ${AARCH64_SYSROOT}/lib/ld-linux-aarch64.so.1 /lib/ld-linux-aarch64.so.1
-
 # Audio packages
 RUN apt update && apt install -y --no-install-recommends \
-    gir1.2-gstreamer-1.0        \
-    gstreamer1.0-plugins-base   \
-    gstreamer1.0-plugins-good   \
-    python3-gi                  \
-    python3-rtmidi              \
-    python3-mido                \
+    alsa-utils                      \
+    gir1.2-gstreamer-1.0            \
+    gstreamer1.0-plugins-base       \
+    gstreamer1.0-plugins-good       \
+    python3-gi                      \
+    python3-rtmidi                  \
+    python3-mido                    \
+    pipewire-audio-client-libraries \
+    pulseaudio-utils                \
     # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
-# todo: CLEANUP
+# C++ libraries
 RUN apt update && apt install -y --no-install-recommends \
-    libasound2-dev              \
-    # libjack-dev                 \
-    # libpulse-dev                \
-    libgstreamer1.0-dev         \
-    libgstreamer-plugins-base1.0-dev \
+    libasound2-dev                      \
+    libboost-all-dev                    \
+    libgstreamer1.0-dev                 \
+    libgstreamer-plugins-base1.0-dev    \
+    libpulse-dev                        \
     # Cleanup
     && rm -rf /var/lib/apt/lists/*
 
-# dev packages
+# Dev tools
 RUN apt update && apt install -y --no-install-recommends \
-    libboost-all-dev    \
+    clang-format                    \
+    clang-tidy                      \
+    gdb-multiarch                   \
+    lcov                            \
+    qemu-user-static                \
+    valgrind                        \
     # Cleanup
     && rm -rf /var/lib/apt/lists/*
 

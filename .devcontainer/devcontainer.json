@@ -2,8 +2,7 @@
 	"name": "midi-tools",
 	"build": {
 		"dockerfile": "Dockerfile",
-		"args":
-		{
+		"args": {
 			"USERNAME": "${localEnv:USER}"
 		}
 	},
@@ -12,34 +11,40 @@
 	"workspaceFolder": "/opt/midi-tools",
 	"runArgs": [
 		"--net=host",
-		"-v", "/dev:/dev",
-		"-v", "${localEnv:HOME}/.gitconfig:/home/${localEnv:USER}/.gitconfig",
-		"-v", "${localEnv:HOME}/.ssh:/home/${localEnv:USER}/.ssh",
-		"-v", "/tmp/.X11-unix:/tmp/.X11-unix",
-		"--name", "midi-tools"
+		"-v",
+		"/dev:/dev",
+		"-v",
+		"${localEnv:HOME}/.gitconfig:/home/${localEnv:USER}/.gitconfig",
+		"-v",
+		"${localEnv:HOME}/.ssh:/home/${localEnv:USER}/.ssh",
+		"-v",
+		"/tmp/.X11-unix:/tmp/.X11-unix",
+		"--name",
+		"midi-tools"
 	],
-    "containerEnv": {
-        "DISPLAY": "${localEnv:DISPLAY}",
-        "PULSE_SERVER": "unix:${localEnv:XDG_RUNTIME_DIR}/pulse/native"
-        // "NVIDIA_DRIVER_CAPABILITIES": "all"
-    },
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}",
+		"PULSE_SERVER": "unix:${localEnv:XDG_RUNTIME_DIR}/pulse/native"
+		// "NVIDIA_DRIVER_CAPABILITIES": "all"
+	},
 	"mounts": [
-        {
-            "source": "${localEnv:XDG_RUNTIME_DIR}/pipewire-0",
-            "target": "${localEnv:XDG_RUNTIME_DIR}/pipewire-0",
-            "type": "bind"
-        },
-        {
-            "source": "${localEnv:XDG_RUNTIME_DIR}/pulse/native",
-            "target": "${localEnv:XDG_RUNTIME_DIR}/pulse/native",
-            "type": "bind"
-        }
-    ],
+		{
+			"source": "${localEnv:XDG_RUNTIME_DIR}/pipewire-0",
+			"target": "${localEnv:XDG_RUNTIME_DIR}/pipewire-0",
+			"type": "bind"
+		},
+		{
+			"source": "${localEnv:XDG_RUNTIME_DIR}/pulse/native",
+			"target": "${localEnv:XDG_RUNTIME_DIR}/pulse/native",
+			"type": "bind"
+		}
+	],
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-vscode.cpptools-extension-pack",
 				"mhutchie.git-graph",
+				"streetsidesoftware.code-spell-checker",
 				"ms-python.python"
 			]
 		}
