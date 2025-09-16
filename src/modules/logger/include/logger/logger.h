@@ -26,7 +26,7 @@ struct FormatWithLocation
 
 template <typename... Args>
 void log(FormatWithLocation fmt, Args&&... args) {
-    auto formatted = std::vformat(fmt.value, std::make_format_args(std::forward<Args>(args)...));
+    auto formatted = std::vformat(fmt.value, std::make_format_args(args...));
     detail::log(formatted, fmt.loc);
 }
 

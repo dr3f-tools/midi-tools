@@ -5,8 +5,9 @@
 namespace
 {
 
-/// @brief Extract filename from source location, removing all directories up to the specified level.
-static constexpr std::string_view filename(std::source_location const& loc, int level = 0) {
+/// @brief Extract filename from source location, removing all directories up to the specified
+/// level.
+constexpr std::string_view filename(std::source_location const& loc, int level = 0) {
     std::string_view file = loc.file_name();
     size_t pos = file.size();
     for (int i = 0; i <= level; ++i) {
@@ -24,7 +25,7 @@ static constexpr std::string_view filename(std::source_location const& loc, int 
 }
 
 /// @brief Extract function name from source location
-static constexpr std::string_view funcname(std::source_location const& loc) {
+constexpr std::string_view funcname(std::source_location const& loc) {
     std::string_view func = loc.function_name();
     auto pos = func.find('(');
     if (pos != std::string_view::npos) {

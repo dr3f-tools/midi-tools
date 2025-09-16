@@ -3,6 +3,7 @@
     "cSpell.ignoreWords": [
         "gstreamer",
         "midi",
+        "doctest",
         "readerwriterqueue",
         "libremidi",
         "endforeach",
