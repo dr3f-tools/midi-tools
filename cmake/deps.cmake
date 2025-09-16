@@ -2,6 +2,7 @@ include(FetchContent)
 
 find_package(ALSA REQUIRED)
 find_package(Boost REQUIRED)
+find_package(GStreamer REQUIRED)
 
 FetchContent_Declare(
     readerwriterqueue
@@ -18,4 +19,10 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(libremidi)
 target_compile_options(libremidi PRIVATE -Wno-maybe-uninitialized) # silence a Boost warning from libremidi
 
-find_package(GStreamer REQUIRED)
+
+FetchContent_Declare(
+    doctest
+    GIT_REPOSITORY https://github.com/doctest/doctest.git
+    GIT_TAG        v2.4.12
+)
+FetchContent_MakeAvailable(doctest)

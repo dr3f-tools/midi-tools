@@ -36,5 +36,15 @@
             "configurePreset": "release",
             "jobs": 0
         }
+    ],
+    "testPresets": [
+        {
+            "name": "debug",
+            "configurePreset": "debug"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release"
+        }
     ]
 }

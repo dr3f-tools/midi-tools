@@ -1,5 +1,7 @@
 project(logger LANGUAGES CXX)
 
+add_subdirectory(tests)
+
 add_library(logger STATIC
     logger.cpp
 )

@@ -47,6 +47,8 @@ IncludeCategories:
     Priority: 1 # gstreamer headers
   - Regex: '^<libremidi/.*>'
     Priority: 1 # libremidi headers
+  - Regex: '^<doctest/.*>'
+    Priority: 1 # doctest headers
   - Regex: '^<.*>'
     Priority: 2 # System headers
   - Regex: '^<[a-z_]+>' # STL headers
