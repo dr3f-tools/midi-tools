@@ -1,5 +1,6 @@
-#include <iostream>
 #include <libremidi/libremidi.hpp>
+
+#include <iostream>
 
 // Set the configuration of our MIDI port
 // Note that the callback will be invoked from a separate thread,
@@ -15,7 +16,7 @@ auto my_callback = [](const libremidi::message& message) {
     std::cout << " } at timestamp " << std::dec << message.timestamp << "\n";
 };
 
-int main(int argc, char** argv) {
+int main() {
     libremidi::input_port input_port;
     libremidi::observer obs;
     for (libremidi::input_port const& port : obs.get_input_ports()) {

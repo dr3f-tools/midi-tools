@@ -36,7 +36,7 @@ void gen_sine_wave(
     }
 }
 
-static void need_data(GstElement* appsrc, guint, gpointer user_data) {
+static void need_data(GstElement* appsrc, guint, gpointer) {
     int numSamples = 480;
     gsize bufSize = numSamples * sizeof(float) * CHANNELS;
 
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
     log("Starting application");
 
     // set up the gstreamer
-    gst_init(nullptr, nullptr);
+    gst_init(&argc, &argv);
 
     // Create the elements
     GstElement* appsrc = gst_element_factory_make("appsrc", "source");
