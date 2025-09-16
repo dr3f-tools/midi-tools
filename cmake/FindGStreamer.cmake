@@ -3,7 +3,11 @@
 # Provides an imported target: GStreamer::GStreamer
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GST REQUIRED gstreamer-1.0 gstreamer-base-1.0)
+pkg_check_modules(GST REQUIRED
+    gstreamer-1.0
+    gstreamer-app-1.0
+    gstreamer-base-1.0
+)
 
 add_library(GStreamer::GStreamer INTERFACE IMPORTED)
 
