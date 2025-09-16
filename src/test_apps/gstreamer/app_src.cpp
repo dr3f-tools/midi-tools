@@ -21,7 +21,9 @@ struct SineGenerator
     double freq;
     double amplitude;
 
-    SineGenerator(double f, double a) : freq(f), amplitude(a) {}
+    SineGenerator(double f, double a)
+    : freq(f)
+    , amplitude(a) {}
 
     void fillBuffer(gint16* data, int n_samples) {
         double phase_step = TWO_PI * freq / SAMPLE_RATE;
@@ -97,13 +99,15 @@ int main(int argc, char* argv[]) {
     // std::vector<GstAudioChannelPosition> chanPositions;
     // int numChannels = CHANNELS;
     // if (numChannels == 2) {
-    //     chanPositions = {GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT, GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT};
+    //     chanPositions = {GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT,
+    //     GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT};
     // } else {
     //     chanPositions = {GST_AUDIO_CHANNEL_POSITION_MONO};
     // }
 
     // auto* audioInfo = gst_audio_info_new();
-    // gst_audio_info_set_format(audioInfo, GST_AUDIO_FORMAT_S16, SAMPLE_RATE, numChannels, chanPositions.data());
+    // gst_audio_info_set_format(audioInfo, GST_AUDIO_FORMAT_S16, SAMPLE_RATE, numChannels,
+    // chanPositions.data());
 
     // auto* caps = gst_audio_info_to_caps(audioInfo);
     // gst_audio_info_free(audioInfo);
@@ -126,26 +130,14 @@ int main(int argc, char* argv[]) {
     );
     // g_object_set(G_OBJECT(appsrc), "caps", caps, nullptr);
 
-    // gst_app_src_set_caps(GST_APP_SRC(appsrc), caps);
+    gst_app_src_set_caps(GST_APP_SRC(appsrc), caps);
     gst_caps_unref(caps);
 
     // Configure appsrc
     gst_app_src_set_stream_type(GST_APP_SRC(appsrc), GST_APP_STREAM_TYPE_STREAM);
 
-    // g_object_set(
-    //     G_OBJECT(appsrc),
-    //     "stream-type",
-    //     GST_APP_STREAM_TYPE_STREAM,
-    //     "format",
-    //     GST_FORMAT_TIME,
-    //     "is-live",
-    //     TRUE,
-    //     nullptr
-    // );
     g_object_set(
         G_OBJECT(appsrc),
-        "caps",
-        caps,
         "stream-type",
         GST_APP_STREAM_TYPE_STREAM,
         "format",
@@ -154,6 +146,18 @@ int main(int argc, char* argv[]) {
         TRUE,
         nullptr
     );
+    // g_object_set(
+    //     G_OBJECT(appsrc),
+    //     "caps",
+    //     caps,
+    //     "stream-type",
+    //     GST_APP_STREAM_TYPE_STREAM,
+    //     "format",
+    //     GST_FORMAT_TIME,
+    //     "is-live",
+    //     TRUE,
+    //     nullptr
+    // );
 
     g_signal_connect(appsrc, "need-data", G_CALLBACK(need_data), &gen);
 
