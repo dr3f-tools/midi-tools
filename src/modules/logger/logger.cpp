@@ -46,7 +46,7 @@ static constexpr std::string_view funcname(std::source_location const& loc) {
 namespace logger
 {
 
-void log(std::string const& msg, std::source_location const& loc = std::source_location::current()) {
+void log(std::string const& msg, std::source_location const& loc) {
     std::cout << filename(loc, 1) << "(" << loc.line() << ")" << "::" << funcname(loc);
     if (!msg.empty()) {
         std::cout << ": " << msg;

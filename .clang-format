@@ -12,6 +12,7 @@ AlignAfterOpenBracket: BlockIndent
 AlwaysBreakAfterReturnType: None
 ColumnLimit: 120
 DerivePointerAlignment: false
+KeepEmptyLinesAtTheStartOfBlocks: false
 ShortNamespaceLines: 16
 IntegerLiteralSeparator:
   Binary: 4
@@ -20,13 +21,13 @@ IntegerLiteralSeparator:
 BreakBeforeBraces: Custom
 BraceWrapping:
 #  AfterCaseLabel: false
-#  AfterClass: false
+  AfterClass: true
 #  AfterControlStatement: false
-#  AfterEnum: false
+  AfterEnum: true
 #  AfterFunction: false
   AfterNamespace: true
-#  AfterStruct: false
-#  AfterUnion: false
+  AfterStruct: true
+  AfterUnion: true
 #  AfterExternBlock: false
 #  BeforeCatch: false
 #  BeforeElse: false
