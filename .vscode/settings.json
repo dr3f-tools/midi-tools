@@ -4,6 +4,12 @@
         "gstreamer",
         "midi",
         "readerwriterqueue",
-        "libremidi"
-    ]
+        "libremidi",
+        "endforeach",
+        "endfunction"
+    ],
+    "files.associations": {
+        "format": "cpp",
+        "source_location": "cpp"
+    },
 }
