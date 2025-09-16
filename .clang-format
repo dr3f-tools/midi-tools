@@ -35,3 +35,16 @@ BraceWrapping:
 #  SplitEmptyFunction: false
 #  SplitEmptyRecord: false
 #  SplitEmptyNamespace: false
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<gst/.*>'
+    Priority: 1 # gstreamer headers
+  - Regex: '^<libremidi/.*>'
+    Priority: 1 # libremidi headers
+  - Regex: '^<.*>'
+    Priority: 2 # System headers
+  - Regex: '^<[a-z_]+>' # STL headers
+    Priority: 3 # Lower priority to place them last
+  - Regex: '.*'
+    Priority: 0 # Project headers (default)
+SortIncludes: true

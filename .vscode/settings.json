@@ -8,8 +8,5 @@
         "endforeach",
         "endfunction"
     ],
-    "files.associations": {
-        "format": "cpp",
-        "source_location": "cpp"
-    },
+    "C_Cpp.autoAddFileAssociations": false,
 }
