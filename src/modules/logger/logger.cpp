@@ -43,15 +43,10 @@ static constexpr std::string_view funcname(std::source_location const& loc) {
 
 }  // namespace
 
-namespace logger
-{
-
-void log(std::string const& msg, std::source_location const& loc) {
+void logger::detail::log(std::string const& msg, std::source_location const& loc) {
     std::cout << filename(loc, 1) << "(" << loc.line() << ")" << "::" << funcname(loc);
     if (!msg.empty()) {
         std::cout << ": " << msg;
     }
     std::cout << std::endl;
 }
-
-}  // namespace logger

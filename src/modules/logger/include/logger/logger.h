@@ -6,17 +6,28 @@
 
 namespace logger
 {
-
+namespace detail
+{
 void log(std::string const& msg, std::source_location const& loc = std::source_location::current());
+}
+
+struct FormatWithLocation
+{
+    std::string_view value;
+    std::source_location loc;
+
+    constexpr FormatWithLocation(
+        const char* s,
+        const std::source_location& l = std::source_location::current()
+    )
+    : value(s)
+    , loc(l) {}
+};
 
 template <typename... Args>
-void log(std::format_string<Args...> fmt, Args&&... args) {
-    log(std::format(fmt, std::forward<Args>(args)...));
+void log(FormatWithLocation fmt, Args&&... args) {
+    auto formatted = std::vformat(fmt.value, std::make_format_args(std::forward<Args>(args)...));
+    detail::log(formatted, fmt.loc);
 }
 
-// template <typename... Args>
-// constexpr void log(char const* fmt, Args&&... args) {
-//     log(std::vformat(fmt, std::forward<Args>(args)...));
-// }
-
-}
+}  // namespace logger
