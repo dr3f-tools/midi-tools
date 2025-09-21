@@ -48,7 +48,7 @@ int main() {
             std::cout << api_name << " : input added " << p << "\n";
         };
         cbs.input_removed = [&](const libremidi::input_port& p) {
-            std::cout << api_name << " : input removed " << p << "\n";
+            // std::cout << api_name << " : input removed " << p << "\n";
             if (id == p.container) {
                 std::cout << "The CASIO port was removed by ID\n";
                 removed = true;
