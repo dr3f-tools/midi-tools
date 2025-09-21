@@ -37,7 +37,7 @@ void gen_sine_wave(
 }
 
 static void need_data(GstElement* appsrc, guint, gpointer) {
-    int numSamples = 480;
+    constexpr int numSamples = 480;
     gsize bufSize = numSamples * sizeof(float) * CHANNELS;
 
     auto gstBuffer = gst_buffer_new_allocate(nullptr, bufSize, nullptr);
@@ -58,6 +58,11 @@ static void need_data(GstElement* appsrc, guint, gpointer) {
     } else {
         logger::log("Stereo not implemented");
     }
+
+    static int samples_pushed = 0;
+    GST_BUFFER_PTS(gstBuffer) = gst_util_uint64_scale(samples_pushed, GST_SECOND, SAMPLE_RATE);
+    GST_BUFFER_DURATION(gstBuffer) = gst_util_uint64_scale(numSamples, GST_SECOND, SAMPLE_RATE);
+    samples_pushed += numSamples;
 
     gst_buffer_unmap(gstBuffer, &map);
     GstFlowReturn ret{GST_FLOW_ERROR};
@@ -81,29 +86,43 @@ int main(int argc, char* argv[]) {
         log("GStreamer: 'appsrc' could not be created.\n");
     }
 
-    auto* audioInfo = gst_audio_info_new();
-    std::vector<GstAudioChannelPosition> chanPositions;
-    if (CHANNELS == 2) {
-        chanPositions = {
-            GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT,
-            GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT
-        };
-    } else {
-        chanPositions = {GST_AUDIO_CHANNEL_POSITION_MONO};
+    {
+        auto* audioInfo = gst_audio_info_new();
+        std::vector<GstAudioChannelPosition> chanPositions;
+        if (CHANNELS == 2) {
+            chanPositions = {
+                GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT,
+                GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT
+            };
+        } else {
+            chanPositions = {GST_AUDIO_CHANNEL_POSITION_MONO};
+        }
+        gst_audio_info_set_format(
+            audioInfo,
+            GST_AUDIO_FORMAT_F32,
+            SAMPLE_RATE,
+            CHANNELS,
+            chanPositions.data()
+        );
+
+        {
+            auto* caps = gst_audio_info_to_caps(audioInfo);
+            gst_audio_info_free(audioInfo);
+
+            g_object_set(G_OBJECT(appsrc), "caps", caps, nullptr);
+            gst_caps_unref(caps);
+        }
     }
-    gst_audio_info_set_format(
-        audioInfo,
-        GST_AUDIO_FORMAT_F32,
-        SAMPLE_RATE,
-        CHANNELS,
-        chanPositions.data()
-    );
 
-    auto* caps = gst_audio_info_to_caps(audioInfo);
-    gst_audio_info_free(audioInfo);
-
-    g_object_set(G_OBJECT(appsrc), "caps", caps, nullptr);
     g_signal_connect(appsrc, "need-data", G_CALLBACK(need_data), nullptr);
+    g_object_set(
+        G_OBJECT(appsrc),
+        "format",
+        GST_FORMAT_TIME,  // interpret PTS/DURATION in nanoseconds
+        "block",
+        TRUE,  // optional: apply backpressure
+        nullptr
+    );
     log("GStreamer 'appsrc' created!");
 
     GstElement* autoaudiosink = gst_element_factory_make("autoaudiosink", "audiosink");
