@@ -7,4 +7,4 @@ include(deps)
 
 add_subdirectory(src/modules/logger)
 add_subdirectory(src/test_apps/gstreamer)
-add_subdirectory(src/test_apps/midireader)
+add_subdirectory(src/test_apps/libremidi)
