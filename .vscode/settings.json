@@ -1,6 +1,7 @@
 {
     "editor.formatOnSave": true,
     "cSpell.ignoreWords": [
+        "alsa",
         "gstreamer",
         "midi",
         "doctest",
