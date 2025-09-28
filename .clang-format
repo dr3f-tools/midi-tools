@@ -46,13 +46,13 @@ IncludeCategories:
   - Regex: '^<gst/.*>'
     Priority: 1 # gstreamer headers
   - Regex: '^<libremidi/.*>'
-    Priority: 1 # libremidi headers
+    Priority: 2 # libremidi headers
   - Regex: '^<doctest/.*>'
-    Priority: 1 # doctest headers
+    Priority: 3 # doctest headers
   - Regex: '^<.*>'
-    Priority: 2 # System headers
+    Priority: 4 # System headers
   - Regex: '^<[a-z_]+>' # STL headers
-    Priority: 3 # Lower priority to place them last
+    Priority: 5 # Lower priority to place them last
   - Regex: '.*'
     Priority: 0 # Project headers (default)
 SortIncludes: true

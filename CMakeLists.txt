@@ -12,3 +12,4 @@ add_subdirectory(src/modules/midi)
 
 add_subdirectory(src/test_apps/gstreamer)
 add_subdirectory(src/test_apps/libremidi)
+add_subdirectory(src/test_apps/midiplayer)
