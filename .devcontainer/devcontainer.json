@@ -44,6 +44,7 @@
 			"extensions": [
 				"ms-vscode.cpptools-extension-pack",
 				"mhutchie.git-graph",
+				"hediet.vscode-drawio",
 				"streetsidesoftware.code-spell-checker",
 				"ms-python.python"
 			]

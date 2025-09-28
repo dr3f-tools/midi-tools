@@ -12,12 +12,20 @@
         "docker"
     ],
     "words": [
+        "3rdparty",
         "alsa",
         "argn",
         "autogen",
-        "3rdparty",
         "gstreamer",
-        "readerwriterqueue",
         "libremidi",
+        "mido",
+        "pulseaudio",
+        "readerwriterqueue",
+        "rtmidi",
+        "sudoer",
+        "valgrind"
+    ],
+    "ignoreRegExpList": [
+        "/\\blib[a-zA-Z0-9_-]*/"
     ]
 }
