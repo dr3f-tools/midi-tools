@@ -1,14 +1,4 @@
 {
     "editor.formatOnSave": true,
-    "cSpell.ignoreWords": [
-        "alsa",
-        "gstreamer",
-        "midi",
-        "doctest",
-        "readerwriterqueue",
-        "libremidi",
-        "endforeach",
-        "endfunction"
-    ],
     "C_Cpp.autoAddFileAssociations": false,
 }

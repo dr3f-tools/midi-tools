@@ -5,7 +5,7 @@
 TEST_CASE("logger basic") {
     logger::log("Hello, World!");
     logger::log("Formatted number: {}", int(42));
-    // logger::log("Multiple values: {}, {}, {}", 1, 2.5, "test");
+    logger::log("Multiple values: {}, {}, {}", 1, 2.5, "test");
 }
 
 TEST_CASE("logger source location") {

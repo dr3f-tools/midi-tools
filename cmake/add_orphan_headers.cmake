@@ -23,6 +23,7 @@ function(add_orphan_headers project_name)
         list(APPEND source_list ${filename})
         message(STATUS "Generating ${filename}")
     endforeach()
+    
     add_library(${project_name}_orphan_headers OBJECT ${source_list})
     target_include_directories(${project_name}_orphan_headers PRIVATE ${target_include_dirs})
 

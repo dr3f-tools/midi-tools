@@ -1,0 +1,23 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "dictionaries": [
+        "companies",
+        "software",
+        "softwareTerms",
+        "cpp",
+        "bash",
+        "python",
+        "en_CA",
+        "docker"
+    ],
+    "words": [
+        "alsa",
+        "argn",
+        "autogen",
+        "3rdparty",
+        "gstreamer",
+        "readerwriterqueue",
+        "libremidi",
+    ]
+}

@@ -1,0 +1,3 @@
+add_subdirectory(doctest)
+add_subdirectory(readerwriterqueue)
+add_subdirectory(libremidi)

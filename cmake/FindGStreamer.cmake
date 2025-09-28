@@ -13,5 +13,5 @@ pkg_check_modules(GST REQUIRED
 add_library(GStreamer::GStreamer INTERFACE IMPORTED)
 
 target_include_directories(GStreamer::GStreamer INTERFACE ${GST_INCLUDE_DIRS})
-target_link_libraries(GStreamer::GStreamer INTERFACE ${GST_LIBRARIES})
-target_compile_options(GStreamer::GStreamer INTERFACE ${GST_CFLAGS_OTHER})
+target_link_libraries(GStreamer::GStreamer      INTERFACE ${GST_LIBRARIES})
+target_compile_options(GStreamer::GStreamer     INTERFACE ${GST_CFLAGS_OTHER})
