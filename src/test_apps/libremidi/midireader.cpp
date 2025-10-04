@@ -30,16 +30,24 @@ auto my_callback = [](const libremidi::message& message) {
 //     return s;
 // }
 
-int main() {
+int main(int argc, char** argv) {
     libremidi::input_port input_port;
 
     bool removed = false;
-    std::string_view port_name;
+    std::string_view display_name;
     libremidi::container_identifier id;
+
+    std::string_view device_name = "Traktor Kontrol S4";
+    if (argc > 1) {
+        device_name = argv[1];
+    }
+
+    // constexpr auto api_to_use = libremidi::API::ALSA_RAW;
+    constexpr auto api_to_use = libremidi::API::ALSA_SEQ;
 
     std::vector<libremidi::observer> observers;
     for (auto api : libremidi::available_apis()) {
-        if (api != libremidi::API::ALSA_SEQ) continue;
+        if (api != api_to_use) continue;
         std::string_view api_name = libremidi::get_api_display_name(api);
 
         std::cout << "Displaying ports for: " << api_name << std::endl;
@@ -50,11 +58,11 @@ int main() {
         cbs.input_removed = [&](const libremidi::input_port& p) {
             // std::cout << api_name << " : input removed " << p << "\n";
             if (id == p.container) {
-                std::cout << "The CASIO port was removed by ID\n";
+                std::cout << device_name << " was removed by ID\n";
                 removed = true;
             }
-            if (port_name == p.port_name) {
-                std::cout << "The CASIO port was removed by name\n";
+            if (display_name == p.display_name) {
+                std::cout << device_name << " was removed by name\n";
                 removed = true;
             }
         };
@@ -69,21 +77,21 @@ int main() {
     }
 
     for (auto const& obs : observers) {
-        if (obs.get_current_api() != libremidi::API::ALSA_SEQ) continue;
+        if (obs.get_current_api() != api_to_use) continue;
         for (auto const& port : obs.get_input_ports()) {
-            if (std::string::npos != port.port_name.find("CASIO")) {
-                std::cout << "Using port " << port.port_name << std::endl;
+            if (std::string::npos != port.display_name.find(device_name)) {
+                std::cout << "Using port " << port.display_name << std::endl;
                 input_port = port;
                 id = input_port.container;
-                port_name = input_port.port_name;
+                display_name = input_port.display_name;
                 break;
             }
         }
         if (!input_port.port_name.empty()) break;
     }
 
-    if (input_port.port_name.empty()) {
-        std::cerr << "Could not find the CASIO port\n";
+    if (input_port.display_name.empty()) {
+        std::cerr << "Could not find " << device_name << "\n";
         return EXIT_FAILURE;
     }
 

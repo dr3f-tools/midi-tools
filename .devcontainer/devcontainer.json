@@ -20,13 +20,15 @@
 		"-v",
 		"/tmp/.X11-unix:/tmp/.X11-unix",
 		"--name",
-		"midi-tools"
+		"midi-tools",
+		"--group-add=audio"
 	],
 	"containerEnv": {
 		"DISPLAY": "${localEnv:DISPLAY}",
 		"PULSE_SERVER": "unix:${localEnv:XDG_RUNTIME_DIR}/pulse/native"
 		// "NVIDIA_DRIVER_CAPABILITIES": "all"
 	},
+	"remoteUser": "${localEnv:USER}",
 	"mounts": [
 		{
 			"source": "${localEnv:XDG_RUNTIME_DIR}/pipewire-0",

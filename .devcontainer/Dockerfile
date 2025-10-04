@@ -24,6 +24,7 @@ RUN apt update && apt install -y --no-install-recommends \
     python3         	            \
     python3-pip        	            \
     rsync                           \
+    software-properties-common      \
     sudo                            \
     tree                            \
     unzip                           \
@@ -40,6 +41,7 @@ RUN apt update && apt install -y --no-install-recommends \
 RUN apt update && apt install -y --no-install-recommends \
     alsa-utils                      \
     gir1.2-gstreamer-1.0            \
+    gstreamer1.0-alsa               \
     gstreamer1.0-plugins-base       \
     gstreamer1.0-plugins-good       \
     python3-gi                      \

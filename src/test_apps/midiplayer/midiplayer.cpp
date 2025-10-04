@@ -234,11 +234,31 @@ int main(int argc, char* argv[]) {
     );
     log("GStreamer 'appsrc' created!");
 
-    GstElement* autoaudiosink = gst_element_factory_make("autoaudiosink", "audiosink");
-    if (!autoaudiosink) {
-        log("GStreamer: 'autoaudiosink' could not be created.\n");
+    GstElement* alsasink = gst_element_factory_make("alsasink", "audiosink");
+    if (!alsasink) {
+        log("GStreamer: 'alsasink' could not be created.\n");
+        return EXIT_FAILURE;
     }
-    log("GStreamer 'autoaudiosink' created!");
+
+    g_object_set(
+        G_OBJECT(alsasink),
+        "device",
+        "plughw:0,3",
+        // "plughw:TraktorKontrolS,0",
+        "buffer-time",
+        24'000,  // 24 ms
+        "period-time",
+        3'000,  // 3 ms
+        nullptr
+    );
+
+    GstElement* volume = gst_element_factory_make("volume", "volume");
+    if (!volume) {
+        log("GStreamer: 'volume' element could not be created.\n");
+    }
+
+    // Set the volume (0.0 = silent, 1.0 = full scale)
+    g_object_set(G_OBJECT(volume), "volume", 0.01, nullptr);  // 20% volume
 
     // Create the empty pipeline
     GstElement* pipeline = gst_pipeline_new("test-pipeline");
@@ -246,13 +266,15 @@ int main(int argc, char* argv[]) {
         log("GStreamer: 'pipeline' could not be created.\n");
         return EXIT_FAILURE;
     }
+
     // Build the pipeline
-    gst_bin_add_many(GST_BIN(pipeline), appsrc, autoaudiosink, nullptr);
-    if (gst_element_link_many(appsrc, autoaudiosink, nullptr) == FALSE) {
+    gst_bin_add_many(GST_BIN(pipeline), appsrc, volume, alsasink, nullptr);
+    if (gst_element_link_many(appsrc, volume, alsasink, nullptr) == FALSE) {
         log("GStreamer: Elements could not be linked.\n");
         gst_object_unref(pipeline);
         return EXIT_FAILURE;
     }
+
     log("gst pipeline built!");
 
     log("Setting up MIDI input");
@@ -329,7 +351,8 @@ int main(int argc, char* argv[]) {
     log("Stopping pipeline");
     gst_element_set_state(pipeline, GST_STATE_NULL);
     gst_object_unref(pipeline);
-    gst_object_unref(autoaudiosink);
+    gst_object_unref(alsasink);
+    gst_object_unref(volume);
     gst_object_unref(appsrc);
     g_main_loop_unref(loop);
 
