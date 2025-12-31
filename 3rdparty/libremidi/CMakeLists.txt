@@ -7,7 +7,8 @@ add_compile_options(
     -Wno-maybe-uninitialized # silence a Boost warning from libremidi
 )
 
-set(LIBREMIDI_EXAMPLES ON)
+# set(LIBREMIDI_EXAMPLES ON)
+set(LIBREMIDI_EXAMPLES OFF)
 if (LIBREMIDI_EXAMPLES)
     # Errors in examples
     add_compile_options(

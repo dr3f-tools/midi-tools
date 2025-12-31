@@ -22,6 +22,7 @@
         "pulseaudio",
         "readerwriterqueue",
         "rtmidi",
+        "stdx",
         "sudoer",
         "valgrind"
     ],
