@@ -8,7 +8,6 @@ include(deps)
 add_subdirectory(3rdparty)
 
 add_subdirectory(src/modules/logger)
-add_subdirectory(src/modules/midi)
 
 add_subdirectory(src/test_apps/gstreamer)
 add_subdirectory(src/test_apps/libremidi)
